@@ -504,24 +504,105 @@ export default function App() {
             <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-3">
               {steps.map((step) => {
                 const Icon = step.icon;
-                return(
-              <div key={step.id}
-              className="relative rounded-[16px] border border-[#ECECF2] bg-white px-6 py-8 text-center shadow-sm">
-                <div className="absolute right-4 top-4 flex h-7 w-7 items-center justify-center rounded-full bg-linear-to-r from-[#4F39F6] to-[#9514FA] text-[11px] font-semibold text-white">
-                  {step.id}
-                </div>
-                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#F3E8FF] text-[#7C3AED]">
-                  <Icon className="h-7 w-7"/>
-                </div>
-                <h3 className="mt-5 text-[22px] font-extrabold text-[#101727]">{step.title}</h3>
-                <p className="mt-3 text-[14px] leading-6 text-[#6B7280]">{step.description}</p>
-              </div>
+                return (
+                  <div
+                    key={step.id}
+                    className="relative rounded-[16px] border border-[#ECECF2] bg-white px-6 py-8 text-center shadow-sm"
+                  >
+                    <div className="absolute right-4 top-4 flex h-7 w-7 items-center justify-center rounded-full bg-linear-to-r from-[#4F39F6] to-[#9514FA] text-[11px] font-semibold text-white">
+                      {step.id}
+                    </div>
+                    <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#F3E8FF] text-[#7C3AED]">
+                      <Icon className="h-7 w-7" />
+                    </div>
+                    <h3 className="mt-5 text-[22px] font-extrabold text-[#101727]">
+                      {step.title}
+                    </h3>
+                    <p className="mt-3 text-[14px] leading-6 text-[#6B7280]">
+                      {step.description}
+                    </p>
+                  </div>
                 );
               })}
             </div>
           </div>
         </section>
-        
+        {/* pricing section  */}
+        <section className="bg-white py-20">
+          <div className="mx-auto max-w-[1100px] px-4 sm:px-6 lg:px-8">
+            <div className="text-center">
+              <h2 className="text-[42px] font-extrabold leading-tight text-[#101727]">
+                Simple, Transparent Pricing
+              </h2>
+              <p className="mx-auto mt-3 max-w-[500px] text-[15px] leading-tight text-[#6B7280]">
+                Choose the plan that fits your needs. Upgrade or downgrade
+                anytime.
+              </p>
+            </div>
+            <div className="mt-12 grid grid-cols-1 gap-5 lg:grid-cols-3">
+              {pricingPlans.map((plan) => (
+                <div
+                  key={plan.id}
+                  className={`relative flex h-full flex-col rounded-[18px] border p-6 shadow-sm ${
+                    plan.featured
+                      ? "border-transparent bg-linear-to-r from-[#6C3CF4] to-[#9514FA] text-white"
+                      : "border-[#ECECF2] bg-white text-[#101727]"
+                  }`}
+                >
+                  {plan.badge && (
+                    <div className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#FFE8A3] px-3 py-1 text-[11px] font-semibold text-[#A16207]">
+                      {plan.badge}
+                    </div>
+                  )}
+                  <h3 className="text-[22px] font-extrabold">{plan.name}</h3>
+                  <p
+                    className={`mt-2 text-[14px] ${
+                      plan.featured ? "text-white/80" : "text-[#6B7280]"
+                    }`}
+                  >
+                    {plan.subtitle}
+                  </p>
+                  <div className="mt-6 flex items-end gap-1">
+                    <span className="text-[42px] font-extrabold leading-none">
+                      {plan.price}
+                    </span>
+                    <span
+                      className={`pb-1 text-[14px] ${
+                        plan.featured ? "text-white/80" : "text-[#6B7280]"
+                      }`}
+                    >
+                      {plan.period}
+                    </span>
+                  </div>
+                  <div className="mt-6 flex-1 space-y-3">
+                    {plan.features.map((feature, index) => (
+                      <p
+                        key={index}
+                        className={`flex items-center gap-2 text-[14px] ${
+                          plan.featured ? "text-white/80" : "text-[#6B7280]"
+                        }`}
+                      >
+                        <Check className="h-4 w-4 text-[#22C55E]" />
+                        <span>{feature}</span>
+                      </p>
+                    ))}
+                  </div>
+                  <div className="pt-8">
+                  <button
+                    className={`w-full px-6 py-3 text-[14px] font-semibold rounded-full ${
+                      plan.featured
+                        ? "bg-white text-[#6C3CF4]"
+                        : "bg-linear-to-r from-[#4F39F6] to-[#9514FA] text-white"
+                    }`}
+                  >
+                    {plan.buttonText}
+                  </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
         <ToastContainer position="top-right" autoClose={2000} />
       </main>
     </>
