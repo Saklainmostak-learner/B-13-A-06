@@ -1,5 +1,14 @@
 import { useState } from "react";
-import { ShoppingCart, Menu, X, Play } from "lucide-react";
+import {
+  ShoppingCart,
+  Menu,
+  X,
+  Play,
+  UserRound,
+  Package,
+  Rocket,
+  Check,
+} from "lucide-react";
 import bannerImg from "./assets/banner.png";
 import roundImg from "./assets/round.png";
 import aiWritingImg from "./assets/writing.png";
@@ -8,7 +17,8 @@ import premiumImg from "./assets/premium.png";
 import automationImg from "./assets/operation.png";
 import resumeImg from "./assets/portfolio.png";
 import socialImg from "./assets/social-media.png";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const products = [
   {
     id: 1,
@@ -87,21 +97,97 @@ const products = [
     features: ["5000+ assets", "Scheduler included", "Analytics dashboard"],
   },
 ];
-
+const steps = [
+  {
+    id: "01",
+    title: "Create Account",
+    description: "Sign up for free in seconds. No credit card required to get started.",
+    icon: UserRound,
+  },
+  {
+    id: "02",
+    title: "Choose Products",
+    description: "Browse our catalog and select the tools that fit your needs.",
+    icon: Package,
+  },
+  {
+    id: "03",
+    title: "Start Creating",
+    description: "Download and start using your premium tools immediately.",
+    icon: Rocket,
+  },
+];
+const pricingPlans = [
+  {
+    id: 1,
+    name: "Starter",
+    subtitle: "Perfect for getting started",
+    price: "$0",
+    period: "/Month",
+    badge: "",
+    featured: false,
+    buttonText: "Get Started Free",
+    features: [
+      "Access to 10 free tools",
+      "Basic templates",
+      "Community support",
+      "1 project per month",
+    ],
+  },
+  {
+    id: 2,
+    name: "Pro",
+    subtitle: "Best for professionals",
+    price: "$29",
+    period: "/Month",
+    badge: "Most Popular",
+    featured: true,
+    buttonText: "Start Pro Trial",
+    features: [
+      "Access to all premium tools",
+      "Unlimited templates",
+      "Priority support",
+      "Unlimited projects",
+      "Cloud sync",
+      "Advanced analytics",
+    ],
+  },
+  {
+    id: 3,
+    name: "Enterprise",
+    subtitle: "For teams and businesses",
+    price: "$99",
+    period: "/Month",
+    badge: "",
+    featured: false,
+    buttonText: "Contact Sales",
+    features: [
+      "Everything in Pro",
+      "Team collaboration",
+      "Custom integrations",
+      "Dedicated support",
+      "SLA guarantee",
+      "Custom branding",
+    ],
+  },
+];
 export default function App() {
-  const [cart,setCart] = useState([]);
+  const [cart, setCart] = useState([]);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("products");
-  const handleAddToCart =(product)=>{
-    setCart([...cart,product]);
+  const handleAddToCart = (product) => {
+    setCart([...cart, product]);
+    toast.success(`${product.name} added to cart`);
   };
- const handleRemoveFromCart = (indexToRemove) => {
-  const updatedCart = cart.filter((_, index) => index !== indexToRemove);
-  setCart(updatedCart);
-};
-  const handleCheckout =() => {
+  const handleRemoveFromCart = (indexToRemove) => {
+    const removedItem = cart[indexToRemove];
+    const updatedCart = cart.filter((_, index) => index !== indexToRemove);
+    setCart(updatedCart);
+    toast.error(`${removedItem.name} removed from cart`);
+  };
+  const handleCheckout = () => {
     setCart([]);
-  }
+  };
 
   return (
     <>
@@ -209,7 +295,8 @@ export default function App() {
                 Digital Workflow
               </h1>
               <p className="mt-5 max-w-[470px] leading-[1.9] text-[17px] text-[#6B7280] ">
-                Access premium AI tools, design assets, templates, and productivity
+                Access premium AI tools, design assets, templates, and
+                productivity
                 <br />
                 software—all in one place. Start creating faster today. <br />
                 Explore Products
@@ -256,108 +343,154 @@ export default function App() {
         <section className="bg-white py-16">
           <div className="mx-auto max-w-[1100px] px-4 sm:px-6 lg:px-8">
             <div className="text-center">
-              <h2 className="text-[45px] font-extrabold leading-tight text-[#101727]">Premium Digital Tools</h2>
-              <p className="mx-auto mt-4 max-w-[620px] text-[16px] leading-7 text-[#6B7280]">Choose from our curated collection of premium digital products designed <br /> to boost your productivity and creativity.</p>
-              <div className="mt-8 inline-flex rounded-full border border-[#E5E7EB] bg-white p-1" >
-                <button onClick={()=> setActiveTab("products")} className={`rounded-full px-8 py-3 text-[15px] font-semibold transition ${activeTab==="products"
-                  ? "bg-linear-to-r from-[#4F39F6] to-[#9514FA] text-white"
-                  : "text-[#101727]"
-                }`}>Products</button>
-                <button onClick={()=> setActiveTab("cart")} className={`rounded-full px-8 py-3 text-[15px] font-semibold transition ${activeTab==="cart"
-                  ? "bg-linear-to-r from-[#4F39F6] to-[#9514FA] text-white"
-                  : "text-[#101727]"
-                } `}>Cart ({cart.length})</button>
+              <h2 className="text-[45px] font-extrabold leading-tight text-[#101727]">
+                Premium Digital Tools
+              </h2>
+              <p className="mx-auto mt-4 max-w-[620px] text-[16px] leading-7 text-[#6B7280]">
+                Choose from our curated collection of premium digital products
+                designed <br /> to boost your productivity and creativity.
+              </p>
+              <div className="mt-8 inline-flex rounded-full border border-[#E5E7EB] bg-white p-1">
+                <button
+                  onClick={() => setActiveTab("products")}
+                  className={`rounded-full px-8 py-3 text-[15px] font-semibold transition ${
+                    activeTab === "products"
+                      ? "bg-linear-to-r from-[#4F39F6] to-[#9514FA] text-white"
+                      : "text-[#101727]"
+                  }`}
+                >
+                  Products
+                </button>
+                <button
+                  onClick={() => setActiveTab("cart")}
+                  className={`rounded-full px-8 py-3 text-[15px] font-semibold transition ${
+                    activeTab === "cart"
+                      ? "bg-linear-to-r from-[#4F39F6] to-[#9514FA] text-white"
+                      : "text-[#101727]"
+                  } `}
+                >
+                  Cart ({cart.length})
+                </button>
               </div>
             </div>
-            {activeTab=== "products" &&(
+            {activeTab === "products" && (
               <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-                {products.map((product)=>(
-                <div key={product.id} className="rounded-[16px] border border-[#E5E7EB] bg-white p-5 shadow-sm">
-                  <div className="flex items-start justify-between ">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full border border-[#E5E7EB] bg-white text-[22px]">
-                      <img src={product.icon} alt={product.name} className="h-6 w-6 object-contain" />
+                {products.map((product) => (
+                  <div
+                    key={product.id}
+                    className="rounded-[16px] border border-[#E5E7EB] bg-white p-5 shadow-sm"
+                  >
+                    <div className="flex items-start justify-between ">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-full border border-[#E5E7EB] bg-white text-[22px]">
+                        <img
+                          src={product.icon}
+                          alt={product.name}
+                          className="h-6 w-6 object-contain"
+                        />
+                      </div>
+                      <span
+                        className={`rounded-full px-3 py-1 text-[12px] font-medium ${product.tagColor}`}
+                      >
+                        {product.tag}
+                      </span>
                     </div>
-                    <span className={`rounded-full px-3 py-1 text-[12px] font-medium ${product.tagColor}`}>
-                      {product.tag}
-                    </span>
-
-                  </div>
-                  <h3 className="mt-5 text-[18px] font-extrabold text-[#101727] ">{product.name}</h3>
-                  <p className="mt-3 text-[14px] leading-6 text-[#6B7280]">{product.description}</p>
-                  <div className="mt-5 flex items-end gap-1">
-                    <span className="text-[34px] font-extrabold text-[#101727]">${product.price}</span>
-                    <span className="pb-1 text-[14px] text-[#6B7280]">/{product.period}</span>
-                  </div>
-                  <div>{product.features.map((features,index)=>(
-                    <p key={index} className="flex items-center gap-2 text-[14px] text-[#6B7280]">
-                      <span className="text-[#16A34A]">✓</span>
-                      {features}
+                    <h3 className="mt-5 text-[18px] font-extrabold text-[#101727] ">
+                      {product.name}
+                    </h3>
+                    <p className="mt-3 text-[14px] leading-6 text-[#6B7280]">
+                      {product.description}
                     </p>
-                  ))}</div>
-                  <button onClick={()=>handleAddToCart(product)}
-                    className="mt-6 w-full rounded-full bg-linear-to-r from-[#4F39F6] to-[#9514FA] px-6 py-3 text-[14px] font-semibold text-white">Buy Now</button>
-
-                </div>
-
-                )
-                )}
-              </div>
-            )}
-            {activeTab==="cart" && (
-              <div className="mt-10 rounded-[16px] border border-[#E5E7EB] bg-white p-6 shadow-sm">
-                {cart.length ===0 ?(
-                  <p className="text-center text-[16px] text-[#6B7280]">Your Cart is empty.</p>
-            ):(
-              
-            <>
-            <div className="space-y-4">
-              {cart.map((item, index) => (
-                <div
-                  key={index}
-                  className="flex flex-col gap-4 rounded-[14px] border border-[#E5E7EB] p-4 md:flex-row md:items-center md:justify-between"
-                >
-                  <div className="flex items-center gap-4">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full border border-[#E5E7EB] text-[22px]">
-                      <img src={item.icon} alt={item.name} className="h-6 w-6 object-contain" />
+                    <div className="mt-5 flex items-end gap-1">
+                      <span className="text-[34px] font-extrabold text-[#101727]">
+                        ${product.price}
+                      </span>
+                      <span className="pb-1 text-[14px] text-[#6B7280]">
+                        /{product.period}
+                      </span>
                     </div>
                     <div>
-                      <h4 className="text-[17px] font-bold text-[#101727]">
-                        {item.name}
-                      </h4>
-                      <p className="text-[14px] text-[#6B7280]">
-                        ${item.price} / {item.period}
-                      </p>
+                      {product.features.map((features, index) => (
+                        <p
+                          key={index}
+                          className="flex items-center gap-2 text-[14px] text-[#6B7280]"
+                        >
+                          <span className="text-[#16A34A]">✓</span>
+                          {features}
+                        </p>
+                      ))}
                     </div>
+                    <button
+                      onClick={() => handleAddToCart(product)}
+                      className="mt-6 w-full rounded-full bg-linear-to-r from-[#4F39F6] to-[#9514FA] px-6 py-3 text-[14px] font-semibold text-white"
+                    >
+                      Buy Now
+                    </button>
                   </div>
+                ))}
+              </div>
+            )}
+            {activeTab === "cart" && (
+              <div className="mt-10 rounded-[16px] border border-[#E5E7EB] bg-white p-6 shadow-sm">
+                {cart.length === 0 ? (
+                  <p className="text-center text-[16px] text-[#6B7280]">
+                    Your Cart is empty.
+                  </p>
+                ) : (
+                  <>
+                    <div className="space-y-4">
+                      {cart.map((item, index) => (
+                        <div
+                          key={index}
+                          className="flex flex-col gap-4 rounded-[14px] border border-[#E5E7EB] p-4 md:flex-row md:items-center md:justify-between"
+                        >
+                          <div className="flex items-center gap-4">
+                            <div className="flex h-12 w-12 items-center justify-center rounded-full border border-[#E5E7EB] text-[22px]">
+                              <img
+                                src={item.icon}
+                                alt={item.name}
+                                className="h-6 w-6 object-contain"
+                              />
+                            </div>
+                            <div>
+                              <h4 className="text-[17px] font-bold text-[#101727]">
+                                {item.name}
+                              </h4>
+                              <p className="text-[14px] text-[#6B7280]">
+                                ${item.price} / {item.period}
+                              </p>
+                            </div>
+                          </div>
 
-                  <button
-                    onClick={() => handleRemoveFromCart(index)}
-                    className="rounded-full border border-red-200 px-5 py-2 text-[14px] font-semibold text-red-500"
-                  >
-                    Remove
-                  </button>
-                </div>
-              ))}
-            </div>
+                          <button
+                            onClick={() => handleRemoveFromCart(index)}
+                            className="rounded-full border border-red-200 px-5 py-2 text-[14px] font-semibold text-red-500"
+                          >
+                            Remove
+                          </button>
+                        </div>
+                      ))}
+                    </div>
 
-            <div className="mt-6 flex flex-col gap-4 border-t border-[#E5E7EB] pt-6 md:flex-row md:items-center md:justify-between">
-              <p className="text-[16px] font-semibold text-[#101727]">
-                Total Items: {cart.length}
-              </p>
+                    <div className="mt-6 flex flex-col gap-4 border-t border-[#E5E7EB] pt-6 md:flex-row md:items-center md:justify-between">
+                      <p className="text-[16px] font-semibold text-[#101727]">
+                        Total Items: {cart.length}
+                      </p>
 
-              <button
-                onClick={handleCheckout}
-                className="rounded-full bg-linear-to-r from-[#4F39F6] to-[#9514FA] px-6 py-3 text-[14px] font-semibold text-white"
-              >
-                Proceed to Checkout
-              </button>
-            </div>
-              </>
+                      <button
+                        onClick={handleCheckout}
+                        className="rounded-full bg-linear-to-r from-[#4F39F6] to-[#9514FA] px-6 py-3 text-[14px] font-semibold text-white"
+                      >
+                        Proceed to Checkout
+                      </button>
+                    </div>
+                  </>
                 )}
               </div>
             )}
           </div>
         </section>
+        
+        <ToastContainer position="top-right" autoClose={2000} />
       </main>
     </>
   );
