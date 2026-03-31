@@ -603,6 +603,19 @@ export default function App() {
             </div>
           </div>
         </section>
+        {/* workflow section */}
+        <section className="bg-linear-to-r from-[#4F39F6] to-[#9514FA] py-20 text-white ">
+          <div className="mx-auto max-w-[1100px] px-4 text-center sm:px-6 lg:px-8 ">
+            <h2 className="text-[42px] font-extrabold leading-tight">Ready to Transform Your Workflow?</h2>
+            <p className="mx-auto mt-4 max-w-[660px] text-[15px] leading-7 text-white/80 ">Join thousands of professionals who are already using Digitools to work smarter. <br /> Start your free trial today.</p>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+              <button className="rounded-full bg-white px-6 py-3 text-[14px] font-semibold text-[#6C3CF4]">Explore Products</button>
+              <button className="rounded-full border border-white/50  px-6 py-3 text-[14px] font-semibold text-white">View Pricing</button>
+            </div>
+            <p className="mt-6 text-[13px] text-white/70">14-day free trial • No credit card required • Cancel anytime</p>
+          </div>
+
+        </section>
         <ToastContainer position="top-right" autoClose={2000} />
       </main>
     </>
