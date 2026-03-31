@@ -2,10 +2,106 @@ import { useState } from "react";
 import { ShoppingCart, Menu, X, Play } from "lucide-react";
 import bannerImg from "./assets/banner.png";
 import roundImg from "./assets/round.png";
+import aiWritingImg from "./assets/writing.png";
+import designIMg from "./assets/design-tool.png";
+import premiumImg from "./assets/premium.png";
+import automationImg from "./assets/operation.png";
+import resumeImg from "./assets/portfolio.png";
+import socialImg from "./assets/social-media.png";
+
+const products = [
+  {
+    id: 1,
+    name: "AI Writing Pro",
+    description:
+      "Generate high-quality content, blogs, and marketing copy in seconds with advanced AI.",
+    price: 29,
+    period: "Mo",
+    tag: "Best Seller",
+    tagColor: "bg-[#FFF1D6] text-[#D97706]",
+    icon: aiWritingImg,
+    features: [
+      "Unlimited AI generations",
+      "50+ writing templates",
+      "Grammar checker",
+    ],
+  },
+  {
+    id: 2,
+    name: "Design Templates Pack",
+    description:
+      "2000+ premium templates for social media, presentations, and marketing materials.",
+    price: 49,
+    period: "One-Time",
+    tag: "Popular",
+    tagColor: "bg-[#EEE9FF] text-[#6C3CF4]",
+    icon: designIMg,
+    features: ["2000+ templates", "Monthly updates", "Commercial license"],
+  },
+  {
+    id: 3,
+    name: "Premium Stock Assets",
+    description:
+      "Access millions of royalty-free photos, videos, and graphics for your projects.",
+    price: 19,
+    period: "Mo",
+    tag: "New",
+    tagColor: "bg-[#DCFCE7] text-[#16A34A]",
+    icon: premiumImg,
+    features: ["10M+ assets", "Commercial use", "No attribution"],
+  },
+  {
+    id: 4,
+    name: "Automation Toolkit",
+    description:
+      "Automate repetitive tasks and streamline your workflow with powerful tools.",
+    price: 79,
+    period: "Mo",
+    tag: "Popular",
+    tagColor: "bg-[#EEE9FF] text-[#6C3CF4]",
+    icon: automationImg,
+    features: ["50+ automations", "API access", "Custom workflows"],
+  },
+  {
+    id: 5,
+    name: "Resume Builder Pro",
+    description:
+      "Create professional resumes and cover letters that land interviews.",
+    price: 15,
+    period: "One-Time",
+    tag: "New",
+    tagColor: "bg-[#DCFCE7] text-[#16A34A]",
+    icon: resumeImg,
+    features: ["100+ templates", "ATS optimization", "Export to PDF"],
+  },
+  {
+    id: 6,
+    name: "Social Media Content Kit",
+    description:
+      "Complete toolkit for creating engaging social media content across all platforms.",
+    price: 39,
+    period: "Mo",
+    tag: "Best Seller",
+    tagColor: "bg-[#FFF1D6] text-[#D97706]",
+    icon: socialImg,
+    features: ["5000+ assets", "Scheduler included", "Analytics dashboard"],
+  },
+];
 
 export default function App() {
-  const [cart] = useState([]);
+  const [cart,setCart] = useState([]);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState("products");
+  const handleAddToCart =(product)=>{
+    setCart([...cart,product]);
+  };
+ const handleRemoveFromCart = (indexToRemove) => {
+  const updatedCart = cart.filter((_, index) => index !== indexToRemove);
+  setCart(updatedCart);
+};
+  const handleCheckout =() => {
+    setCart([]);
+  }
 
   return (
     <>
@@ -71,7 +167,7 @@ export default function App() {
         </div>
         {menuOpen && (
           <div className="border-t border-gray-200 bg-white lg:hidden">
-            <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-4 sm:px-6">
+            <div className="mx-auto flex max-w-[1200px] flex-col gap-4 px-4 py-4 sm:px-6">
               <a href="#" className="text-sm font-medium text-[#101727]">
                 Products
               </a>
@@ -154,6 +250,112 @@ export default function App() {
               <h2 className="text-[56px] font-extrabold">4.9</h2>
               <p className="mt-4 text-[18px] text-white/90">Rating</p>
             </div>
+          </div>
+        </section>
+        {/* cart Section */}
+        <section className="bg-white py-16">
+          <div className="mx-auto max-w-[1100px] px-4 sm:px-6 lg:px-8">
+            <div className="text-center">
+              <h2 className="text-[45px] font-extrabold leading-tight text-[#101727]">Premium Digital Tools</h2>
+              <p className="mx-auto mt-4 max-w-[620px] text-[16px] leading-7 text-[#6B7280]">Choose from our curated collection of premium digital products designed <br /> to boost your productivity and creativity.</p>
+              <div className="mt-8 inline-flex rounded-full border border-[#E5E7EB] bg-white p-1" >
+                <button onClick={()=> setActiveTab("products")} className={`rounded-full px-8 py-3 text-[15px] font-semibold transition ${activeTab==="products"
+                  ? "bg-linear-to-r from-[#4F39F6] to-[#9514FA] text-white"
+                  : "text-[#101727]"
+                }`}>Products</button>
+                <button onClick={()=> setActiveTab("cart")} className={`rounded-full px-8 py-3 text-[15px] font-semibold transition ${activeTab==="cart"
+                  ? "bg-linear-to-r from-[#4F39F6] to-[#9514FA] text-white"
+                  : "text-[#101727]"
+                } `}>Cart ({cart.length})</button>
+              </div>
+            </div>
+            {activeTab=== "products" &&(
+              <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+                {products.map((product)=>(
+                <div key={product.id} className="rounded-[16px] border border-[#E5E7EB] bg-white p-5 shadow-sm">
+                  <div className="flex items-start justify-between ">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full border border-[#E5E7EB] bg-white text-[22px]">
+                      <img src={product.icon} alt={product.name} className="h-6 w-6 object-contain" />
+                    </div>
+                    <span className={`rounded-full px-3 py-1 text-[12px] font-medium ${product.tagColor}`}>
+                      {product.tag}
+                    </span>
+
+                  </div>
+                  <h3 className="mt-5 text-[18px] font-extrabold text-[#101727] ">{product.name}</h3>
+                  <p className="mt-3 text-[14px] leading-6 text-[#6B7280]">{product.description}</p>
+                  <div className="mt-5 flex items-end gap-1">
+                    <span className="text-[34px] font-extrabold text-[#101727]">${product.price}</span>
+                    <span className="pb-1 text-[14px] text-[#6B7280]">/{product.period}</span>
+                  </div>
+                  <div>{product.features.map((features,index)=>(
+                    <p key={index} className="flex items-center gap-2 text-[14px] text-[#6B7280]">
+                      <span className="text-[#16A34A]">✓</span>
+                      {features}
+                    </p>
+                  ))}</div>
+                  <button onClick={()=>handleAddToCart(product)}
+                    className="mt-6 w-full rounded-full bg-linear-to-r from-[#4F39F6] to-[#9514FA] px-6 py-3 text-[14px] font-semibold text-white">Buy Now</button>
+
+                </div>
+
+                )
+                )}
+              </div>
+            )}
+            {activeTab==="cart" && (
+              <div className="mt-10 rounded-[16px] border border-[#E5E7EB] bg-white p-6 shadow-sm">
+                {cart.length ===0 ?(
+                  <p className="text-center text-[16px] text-[#6B7280]">Your Cart is empty.</p>
+            ):(
+              
+            <>
+            <div className="space-y-4">
+              {cart.map((item, index) => (
+                <div
+                  key={index}
+                  className="flex flex-col gap-4 rounded-[14px] border border-[#E5E7EB] p-4 md:flex-row md:items-center md:justify-between"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full border border-[#E5E7EB] text-[22px]">
+                      <img src={item.icon} alt={item.name} className="h-6 w-6 object-contain" />
+                    </div>
+                    <div>
+                      <h4 className="text-[17px] font-bold text-[#101727]">
+                        {item.name}
+                      </h4>
+                      <p className="text-[14px] text-[#6B7280]">
+                        ${item.price} / {item.period}
+                      </p>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => handleRemoveFromCart(index)}
+                    className="rounded-full border border-red-200 px-5 py-2 text-[14px] font-semibold text-red-500"
+                  >
+                    Remove
+                  </button>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-6 flex flex-col gap-4 border-t border-[#E5E7EB] pt-6 md:flex-row md:items-center md:justify-between">
+              <p className="text-[16px] font-semibold text-[#101727]">
+                Total Items: {cart.length}
+              </p>
+
+              <button
+                onClick={handleCheckout}
+                className="rounded-full bg-linear-to-r from-[#4F39F6] to-[#9514FA] px-6 py-3 text-[14px] font-semibold text-white"
+              >
+                Proceed to Checkout
+              </button>
+            </div>
+              </>
+                )}
+              </div>
+            )}
           </div>
         </section>
       </main>
