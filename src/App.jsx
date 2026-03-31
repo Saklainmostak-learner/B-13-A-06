@@ -101,7 +101,8 @@ const steps = [
   {
     id: "01",
     title: "Create Account",
-    description: "Sign up for free in seconds. No credit card required to get started.",
+    description:
+      "Sign up for free in seconds. No credit card required to get started.",
     icon: UserRound,
   },
   {
@@ -487,6 +488,37 @@ export default function App() {
                 )}
               </div>
             )}
+          </div>
+        </section>
+        {/* get star section */}
+        <section className="bg-white py-20">
+          <div className="mx-auto max-w-[1100px] px-4 sm:px-6 lg:px-8">
+            <div className="text-center">
+              <h2 className="text-[42px] font-extrabold leading-tight text-[#101727]">
+                Get Started in 3 Steps
+              </h2>
+              <p className="mx-auto mt-3 max-w-[500px] text-[15px] leading-tight text-[#6B7280]">
+                Start using premium digital tools in minutes, not hours.
+              </p>
+            </div>
+            <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-3">
+              {steps.map((step) => {
+                const Icon = step.icon;
+                return(
+              <div key={step.id}
+              className="relative rounded-[16px] border border-[#ECECF2] bg-white px-6 py-8 text-center shadow-sm">
+                <div className="absolute right-4 top-4 flex h-7 w-7 items-center justify-center rounded-full bg-linear-to-r from-[#4F39F6] to-[#9514FA] text-[11px] font-semibold text-white">
+                  {step.id}
+                </div>
+                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#F3E8FF] text-[#7C3AED]">
+                  <Icon className="h-7 w-7"/>
+                </div>
+                <h3 className="mt-5 text-[22px] font-extrabold text-[#101727]">{step.title}</h3>
+                <p className="mt-3 text-[14px] leading-6 text-[#6B7280]">{step.description}</p>
+              </div>
+                );
+              })}
+            </div>
           </div>
         </section>
         
