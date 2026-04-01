@@ -177,8 +177,10 @@ export default function App() {
   const [cart, setCart] = useState([]);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("products");
+  const [addedItems, setAddedItems] = useState([]);
   const handleAddToCart = (product) => {
     setCart([...cart, product]);
+    setAddedItems([...addedItems, product.id]);
     toast.success(`${product.name} added to cart`);
   };
   const handleRemoveFromCart = (indexToRemove) => {
@@ -373,7 +375,7 @@ export default function App() {
                       : "text-[#101727]"
                   } `}
                 >
-                  Cart ({cart.length}) - ${totalPrice}
+                  Cart ({cart.length})
                 </button>
               </div>
             </div>
