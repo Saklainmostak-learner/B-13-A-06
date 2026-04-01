@@ -191,6 +191,7 @@ export default function App() {
   };
   const handleCheckout = () => {
     setCart([]);
+    setAddedItems([]);
     toast.success("Checkout complete");
   };
   const totalPrice = cart.reduce((sum, item) => sum + item.price, 0);
