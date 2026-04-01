@@ -19,6 +19,7 @@ import resumeImg from "./assets/portfolio.png";
 import socialImg from "./assets/social-media.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Footer from "./footer";
 const products = [
   {
     id: 1,
@@ -618,6 +619,8 @@ export default function App() {
         </section>
         <ToastContainer position="top-right" autoClose={2000} />
       </main>
+
+      <Footer/>
     </>
   );
 }
