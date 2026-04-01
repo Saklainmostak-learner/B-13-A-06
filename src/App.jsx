@@ -189,6 +189,7 @@ export default function App() {
   };
   const handleCheckout = () => {
     setCart([]);
+    toast.success("Checkout complete");
   };
   const totalPrice = cart.reduce((sum, item) => sum + item.price, 0);
 
@@ -372,7 +373,7 @@ export default function App() {
                       : "text-[#101727]"
                   } `}
                 >
-                  Cart ({cart.length})
+                  Cart ({cart.length}) - ${totalPrice}
                 </button>
               </div>
             </div>
@@ -426,7 +427,9 @@ export default function App() {
                       onClick={() => handleAddToCart(product)}
                       className="mt-6 w-full rounded-full bg-linear-to-r from-[#4F39F6] to-[#9514FA] px-6 py-3 text-[14px] font-semibold text-white"
                     >
-                      Buy Now
+                      {addedItems.includes(product.id)
+                        ? "Added to Cart"
+                        : "Buy Now"}
                     </button>
                   </div>
                 ))}
