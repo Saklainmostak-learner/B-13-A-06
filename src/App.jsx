@@ -190,6 +190,7 @@ export default function App() {
   const handleCheckout = () => {
     setCart([]);
   };
+  const totalPrice = cart.reduce((sum, item) => sum + item.price, 0);
 
   return (
     <>
@@ -473,14 +474,15 @@ export default function App() {
                       ))}
                     </div>
 
-                    <div className="mt-6 flex flex-col gap-4 border-t border-[#E5E7EB] pt-6 md:flex-row md:items-center md:justify-between">
-                      <p className="text-[16px] font-semibold text-[#101727]">
-                        Total Items: {cart.length}
-                      </p>
+                    <div className="mt-6 border-t border-[#E5E7EB] pt-6">
+                      <div className="mb-4 flex items-center justify-between text-[16px] font-semibold text-[#101727]">
+                        <span>Total:</span>
+                        <span>${totalPrice}</span>
+                      </div>
 
                       <button
                         onClick={handleCheckout}
-                        className="rounded-full bg-linear-to-r from-[#4F39F6] to-[#9514FA] px-6 py-3 text-[14px] font-semibold text-white"
+                        className="w-full rounded-full bg-linear-to-r from-[#4F39F6] to-[#9514FA] px-6 py-3 text-[14px] font-semibold text-white"
                       >
                         Proceed to Checkout
                       </button>
@@ -589,15 +591,15 @@ export default function App() {
                     ))}
                   </div>
                   <div className="pt-8">
-                  <button
-                    className={`w-full px-6 py-3 text-[14px] font-semibold rounded-full ${
-                      plan.featured
-                        ? "bg-white text-[#6C3CF4]"
-                        : "bg-linear-to-r from-[#4F39F6] to-[#9514FA] text-white"
-                    }`}
-                  >
-                    {plan.buttonText}
-                  </button>
+                    <button
+                      className={`w-full px-6 py-3 text-[14px] font-semibold rounded-full ${
+                        plan.featured
+                          ? "bg-white text-[#6C3CF4]"
+                          : "bg-linear-to-r from-[#4F39F6] to-[#9514FA] text-white"
+                      }`}
+                    >
+                      {plan.buttonText}
+                    </button>
                   </div>
                 </div>
               ))}
@@ -607,20 +609,30 @@ export default function App() {
         {/* workflow section */}
         <section className="bg-linear-to-r from-[#4F39F6] to-[#9514FA] py-20 text-white ">
           <div className="mx-auto max-w-[1100px] px-4 text-center sm:px-6 lg:px-8 ">
-            <h2 className="text-[42px] font-extrabold leading-tight">Ready to Transform Your Workflow?</h2>
-            <p className="mx-auto mt-4 max-w-[660px] text-[15px] leading-7 text-white/80 ">Join thousands of professionals who are already using Digitools to work smarter. <br /> Start your free trial today.</p>
+            <h2 className="text-[42px] font-extrabold leading-tight">
+              Ready to Transform Your Workflow?
+            </h2>
+            <p className="mx-auto mt-4 max-w-[660px] text-[15px] leading-7 text-white/80 ">
+              Join thousands of professionals who are already using Digitools to
+              work smarter. <br /> Start your free trial today.
+            </p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-              <button className="rounded-full bg-white px-6 py-3 text-[14px] font-semibold text-[#6C3CF4]">Explore Products</button>
-              <button className="rounded-full border border-white/50  px-6 py-3 text-[14px] font-semibold text-white">View Pricing</button>
+              <button className="rounded-full bg-white px-6 py-3 text-[14px] font-semibold text-[#6C3CF4]">
+                Explore Products
+              </button>
+              <button className="rounded-full border border-white/50  px-6 py-3 text-[14px] font-semibold text-white">
+                View Pricing
+              </button>
             </div>
-            <p className="mt-6 text-[13px] text-white/70">14-day free trial • No credit card required • Cancel anytime</p>
+            <p className="mt-6 text-[13px] text-white/70">
+              14-day free trial • No credit card required • Cancel anytime
+            </p>
           </div>
-
         </section>
         <ToastContainer position="top-right" autoClose={2000} />
       </main>
 
-      <Footer/>
+      <Footer />
     </>
   );
 }
